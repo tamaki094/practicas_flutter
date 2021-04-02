@@ -289,6 +289,65 @@
 //   }
 // }
 
+// import 'package:flutter/material.dart';
+
+// void main() => runApp(MyApp());
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Material App',
+//       home: Scaffold(
+//           appBar: AppBar(
+//             title: Text('Material App Bar'),
+//           ),
+//           body: ListView(
+//             children: <Widget>[
+//               Image.asset("assets/img1.jpg"),
+//               Image.asset("assets/img2.jpg"),
+//               Image.asset("assets/img3.jpg"),
+//               Image.asset("assets/img4.jpg"),
+//               Image.asset("assets/img5.jpg"),
+//               Image.asset("assets/img6.jpg"),
+//               Image.asset("assets/img7.jpg"),
+//             ],
+//           )),
+//     );
+//   }
+// }
+//
+//
+
+// import 'package:flutter/material.dart';
+
+// void main() => runApp(MyApp());
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Material App',
+//       theme: ThemeData(fontFamily: "Amatic"),
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('Material App Bar'),
+//         ),
+//         body: Center(
+//           child: Container(
+//             child: Text(
+//               'Hello World',
+//               style: TextStyle(fontFamily: "Oi", fontSize: 35),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -296,23 +355,67 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Material App Bar'),
-          ),
-          body: ListView(
-            children: <Widget>[
-              Image.asset("assets/img1.jpg"),
-              Image.asset("assets/img2.jpg"),
-              Image.asset("assets/img3.jpg"),
-              Image.asset("assets/img4.jpg"),
-              Image.asset("assets/img5.jpg"),
-              Image.asset("assets/img6.jpg"),
-              Image.asset("assets/img7.jpg"),
-            ],
-          )),
-    );
+    return MaterialApp(title: 'Material App', home: MyHomePage());
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key}) : super(key: key);
+
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  String name = "Marvin";
+  double progressValue = 0.0;
+  bool switchValue = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(),
+        body: Center(
+            child: Column(
+          children: [
+            Text(this.name, style: TextStyle(fontSize: 30)),
+            LinearProgressIndicator(
+              value: progressValue,
+            ),
+            Switch(
+                value: switchValue,
+                onChanged: (value) {
+                  setState(() {
+                    this.switchValue = value;
+                  });
+                })
+          ],
+        )),
+        floatingActionButton: FloatingActionButton(
+          onPressed: changeName,
+        ));
+  }
+
+  void changeName() {
+    setState(() {
+      if (name == "Marvin") {
+        name = "Osiel";
+      } else {
+        name = "Marvin";
+      }
+      progress_value += 0.01;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(Duration(seconds: 1), (value) {
+      changeName();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
